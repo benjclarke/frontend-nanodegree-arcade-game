@@ -3,7 +3,7 @@ var Enemy = function(x, y) {
 
     this.x = x;
     this.y = y;
-    var speed = Math.random() * 100;
+    speed = Math.random() * 100 + 150;
     this.speed = speed;
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
@@ -37,7 +37,7 @@ var Player = function(x, y) {
 
 };
 
-Player.prototype.update = function() {
+Player.prototype.update = function(dt) {
 
 
 };
