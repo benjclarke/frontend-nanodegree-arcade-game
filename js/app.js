@@ -47,7 +47,7 @@ Player.prototype.restart = function() {
     this.y = 400;
 };
 
-
+// can't get this to work perfectly - the distance between player's last Y position and the reset requirement Y position is less than one incremental move - so the check is met and the player resetes
 Player.prototype.update = function(dt) {
     if (this.y < 55 ) {
         alert("you made it to the end");
@@ -73,7 +73,7 @@ Player.prototype.handleInput = function(key) {
         }
     }
     else if(key == 'right'){
-        if(this.x < 420){
+        if(this.x < 320){
             this.x +=100;
         }
     }
@@ -83,7 +83,7 @@ Player.prototype.handleInput = function(key) {
         }
         }
     else if(key == 'down'){
-        if(this.y < 420){
+        if(this.y < 320){
             this.y +=100;
         };
     };
