@@ -19,7 +19,11 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
-    this.x += this.speed * dt
+    if (this.x < 505) {
+    this.x += this.speed * dt;
+    } else { 
+        this.x = -10;
+    }
 };
 
 // Draw the enemy on the screen, required method for game
@@ -38,10 +42,23 @@ var Player = function(x, y) {
 
 };
 
-Player.prototype.update = function(dt) {
+Player.prototype.restart = function() {
+    this.x = 200;
+    this.y = 400;
+};
 
+
+Player.prototype.update = function(dt) {
+    if (this.y < 55 ) {
+        alert("you made it to the end");
+        this.restart();
+    }
+    collision();
 
 };
+
+
+
 
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
@@ -49,10 +66,41 @@ Player.prototype.render = function() {
 
 };
 
-//Player.protoype.handleInput = function() {
+Player.prototype.handleInput = function(key) {
+    if(key == 'left'){
+        if (this.x > 20){
+            this.x -=100;
+        }
+    }
+    else if(key == 'right'){
+        if(this.x < 420){
+            this.x +=100;
+        }
+    }
+    else if(key == 'up'){
+        if (this.y > 50){
+            this.y -=50;
+        }
+        }
+    else if(key == 'down'){
+        if(this.y < 420){
+            this.y +=100;
+        };
+    };
+};
+
+// taken from moz tutorial on 2D collision https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection
+// added some padding to width and height of player and enemy object to guesstimate their size 
 
 
-//};
+var collision = function() {
+    allEnemies.forEach(function(enemy) {
+    if(enemy.x < player.x + 30 && enemy.x + 60 > player.x && enemy.y < player.y + 60 && enemy.y + 40 > player.y) {
+        player.restart();
+    }
+    });
+}
+
 
 var player = new Player(200, 400);
 
