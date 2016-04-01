@@ -1,4 +1,7 @@
 // Enemies our player must avoid
+
+TILE_WIDTH = 101;
+TILE_HEIGHT = 83;
 var Enemy = function(x, y) {
 
     this.x = x;
@@ -47,18 +50,6 @@ Player.prototype.restart = function() {
     this.y = 400;
 };
 
-// can't get this to work perfectly - the distance between player's last Y position and the reset requirement Y position is less than one incremental move - so the check is met and the player resetes
-Player.prototype.update = function(dt) {
-    if (this.y < 55 ) {
-        alert("you made it to the end");
-        this.restart();
-    }
-    collision();
-
-};
-
-
-
 
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
@@ -66,25 +57,27 @@ Player.prototype.render = function() {
 
 };
 
+// checks to make sure the player is on the playable space - if so executes the input handler for each of 4 keys
+
 Player.prototype.handleInput = function(key) {
     if(key == 'left'){
         if (this.x > 20){
-            this.x -=100;
+            this.x -=TILE_WIDTH;
         }
     }
     else if(key == 'right'){
         if(this.x < 320){
-            this.x +=100;
+            this.x +=TILE_WIDTH;
         }
     }
     else if(key == 'up'){
         if (this.y > 50){
-            this.y -=50;
+            this.y -=TILE_HEIGHT;
         }
         }
     else if(key == 'down'){
         if(this.y < 320){
-            this.y +=100;
+            this.y +=TILE_HEIGHT;
         };
     };
 };
@@ -93,7 +86,7 @@ Player.prototype.handleInput = function(key) {
 // added some padding to width and height of player and enemy object to guesstimate their size 
 
 
-var collision = function() {
+Player.prototype.collision = function() {
     allEnemies.forEach(function(enemy) {
     if(enemy.x < player.x + 30 && enemy.x + 60 > player.x && enemy.y < player.y + 60 && enemy.y + 40 > player.y) {
         player.restart();
@@ -101,6 +94,15 @@ var collision = function() {
     });
 }
 
+// can't get this to work perfectly - the distance between player's last Y position and the reset requirement Y position is less than one incremental move - so the check is met and the player resetes
+Player.prototype.update = function(dt) {
+    if (this.y < 55 ) {
+        alert("you made it to the end");
+        this.restart();
+    }
+    player.collision();
+
+};
 
 var player = new Player(200, 400);
 
