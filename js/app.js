@@ -1,7 +1,7 @@
 // Enemies our player must avoid
 
-TILE_WIDTH = 101;
-TILE_HEIGHT = 83;
+var title_width = 101;
+var tile_height = 83;
 var Enemy = function(x, y) {
 
     this.x = x;
@@ -62,24 +62,24 @@ Player.prototype.render = function() {
 Player.prototype.handleInput = function(key) {
     if(key == 'left'){
         if (this.x > 20){
-            this.x -=TILE_WIDTH;
+            this.x -=title_width;
         }
     }
     else if(key == 'right'){
         if(this.x < 320){
-            this.x +=TILE_WIDTH;
+            this.x +=title_width;
         }
     }
     else if(key == 'up'){
         if (this.y > 50){
-            this.y -=TILE_HEIGHT;
+            this.y -=tile_height;
         }
         }
     else if(key == 'down'){
         if(this.y < 320){
-            this.y +=TILE_HEIGHT;
-        };
-    };
+            this.y +=tile_height;
+        }
+    }
 };
 
 // taken from moz tutorial on 2D collision https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection
